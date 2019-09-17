@@ -1,4 +1,4 @@
-#!/Users/tylermoore/Dropbox/stocks/webpage/virtual/bin/python
+#!/Users/tylermoore/Dropbox/stocks/stock-predictor/virtual/bin/python
 
 import sys
 import getopt

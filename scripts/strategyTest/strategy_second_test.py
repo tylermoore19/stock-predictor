@@ -330,11 +330,11 @@ def findWinningPercentage(stock, start, end):
 
         #check to see if you won or not
         #we are using AVG_DIFFERENCE / 4 because in nadex, the stock price has to go up a little to win
-        if (INVEST == 2 and TEST_DIFFERENCE > 0.4):
+        if (INVEST == 2 and TODAY_DIFFERENCE > 0.3):
             #WINS = WINS + 1
             WIN_COUNT += 1
-            AVG_WIN += TEST_DIFFERENCE
-            AVG_PERCENT_WIN += (TEST_DIFFERENCE / CLOSE)
+            AVG_WIN += TODAY_DIFFERENCE
+            AVG_PERCENT_WIN += (TODAY_DIFFERENCE / CLOSE)
             PROFIT = PROFIT + (60 * 100)
             #print "You correctly invested up! " + str(TEST_DIFFERENCE)
             #print "Close - Open: " + str(TODAY_NET)
@@ -342,12 +342,12 @@ def findWinningPercentage(stock, start, end):
             # print (dfDates[i])
             # print (2)
 
-        elif (INVEST == 2 and TEST_DIFFERENCE < 0.4):
+        elif (INVEST == 2 and TODAY_DIFFERENCE < 0.3):
             #LOSS = LOSS + 1
             LOSS_COUNT += 1
-            TEST_DIFFERENCE *= -1
-            AVG_LOSS += TEST_DIFFERENCE
-            AVG_PERCENT_LOSS += (TEST_DIFFERENCE / CLOSE)
+            TODAY_DIFFERENCE *= -1
+            AVG_LOSS += TODAY_DIFFERENCE
+            AVG_PERCENT_LOSS += (TODAY_DIFFERENCE / CLOSE)
             PROFIT = PROFIT - (30 * 100)
             #print "WRONG! " + str(-1 * TEST_DIFFERENCE)
             #print "Close - Open: " + str(TODAY_NET)
@@ -356,12 +356,12 @@ def findWinningPercentage(stock, start, end):
             # print (1)
 
         #TMP_DIFFERENCE is the negative version of AVG_DIFFERENCE cuz we are looking at investing down
-        elif (INVEST == 1 and TEST_DIFFERENCE < -0.4):
+        elif (INVEST == 1 and TODAY_DIFFERENCE < -0.3):
             #WINS = WINS + 1
             WIN_COUNT += 1
-            TEST_DIFFERENCE *= -1
-            AVG_WIN += TEST_DIFFERENCE
-            AVG_PERCENT_WIN += (TEST_DIFFERENCE / CLOSE)
+            TODAY_DIFFERENCE *= -1
+            AVG_WIN += TODAY_DIFFERENCE
+            AVG_PERCENT_WIN += (TODAY_DIFFERENCE / CLOSE)
             PROFIT = PROFIT + (60 * 100)
             #print "You correctly invested down! " + str(-1 * TEST_DIFFERENCE)
             #print "Close - Open: " + str(TODAY_NET)
@@ -369,11 +369,11 @@ def findWinningPercentage(stock, start, end):
             # print (dfDates[i])
             # print (2)
 
-        elif (INVEST == 1 and TEST_DIFFERENCE > -0.4):
+        elif (INVEST == 1 and TODAY_DIFFERENCE > -0.3):
             #LOSS = LOSS + 1
             LOSS_COUNT += 1
-            AVG_LOSS += TEST_DIFFERENCE
-            AVG_PERCENT_LOSS += (TEST_DIFFERENCE / CLOSE)
+            AVG_LOSS += TODAY_DIFFERENCE
+            AVG_PERCENT_LOSS += (TODAY_DIFFERENCE / CLOSE)
             PROFIT = PROFIT - (30 * 100)
             #print "WRONG! " + str(TEST_DIFFERENCE)
             #print "Close - Open: " + str(TODAY_NET)

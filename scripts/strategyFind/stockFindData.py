@@ -30,6 +30,7 @@ def findBasicHistoricalData(stockSymbol, start, end):
     df['Difference'] = df['Close'].diff()
 
     dfDifference = df['Difference']
+    dfTodayDifference = df['Close'] - df['Open']
     dfClose = df['Close']
     dfOpen = df['Open']
     dfHigh = df['High']
@@ -50,6 +51,7 @@ def findBasicHistoricalData(stockSymbol, start, end):
 
     #make sure there are no NaN's in the dataset
     dfDifference.fillna(0, inplace=True)
+    dfTodayDifference.fillna(0, inplace=True)
     dfClose.fillna(dfClose.mean(), inplace=True)
     dfHigh.fillna(dfHigh.mean(), inplace=True)
     dfLow.fillna(dfLow.mean(), inplace=True)
@@ -72,7 +74,7 @@ def findBasicHistoricalData(stockSymbol, start, end):
     j = i - 9
     while j <= i:
         #finding absolute avg difference which means we need to make sure everything is positive
-        TEMP_DIFFERENCE = dfDifference[j]
+        TEMP_DIFFERENCE = dfTodayDifference[j]
         if (TEMP_DIFFERENCE < 0):
             TEMP_DIFFERENCE *= -1
         AVG_DIFFERENCE += TEMP_DIFFERENCE
@@ -88,7 +90,7 @@ def findBasicHistoricalData(stockSymbol, start, end):
     j = i - 19
     while j <= i:
         #finding absolute avg difference which means we need to make sure everything is positive
-        TEMP_DIFFERENCE = dfDifference[j]
+        TEMP_DIFFERENCE = dfTodayDifference[j]
         if (TEMP_DIFFERENCE < 0):
             TEMP_DIFFERENCE *= -1
         AVG_DIFFERENCE2 += TEMP_DIFFERENCE
@@ -101,8 +103,9 @@ def findBasicHistoricalData(stockSymbol, start, end):
     CLOSE = dfClose[i]
     VOLUME = dfVolume[i]
     DIFFERENCE = dfDifference[i]
+    TODAY_DIFFERENCE = dfTodayDifference[i]
     PREVIOUS_CLOSE = dfClose[i-1]
-    NET_CHANGE = round((float(DIFFERENCE) / float(PREVIOUS_CLOSE) * 100), 2)
+    NET_CHANGE = round((float(TODAY_DIFFERENCE) / float(OPEN) * 100), 2)
 
     LONG_OPEN = dfOpen[i - 30]
     LONG_CLOSE = dfClose[i]
@@ -111,7 +114,7 @@ def findBasicHistoricalData(stockSymbol, start, end):
     print ("Open: " + str(OPEN))
     print ("Close: " + str(CLOSE))
     print ("Prev Close: " + str(PREVIOUS_CLOSE))
-    print ("Difference: " + str(DIFFERENCE))
+    print ("Today Difference: " + str(TODAY_DIFFERENCE))
     print ("Percent Change: " + str(NET_CHANGE) + "%")
     print ("Volume: " + str(VOLUME))
     print ("10 Day Avg Difference: " + str(AVG_DIFFERENCE))
@@ -122,7 +125,7 @@ def findBasicHistoricalData(stockSymbol, start, end):
     print ("-----------\n")
 
     newHistoricalData = BasicHistoricalData(float(OPEN), float(CLOSE), float(PREVIOUS_CLOSE),
-        float(DIFFERENCE), (str(NET_CHANGE) + "%"), float(VOLUME), float(AVG_DIFFERENCE),
+        float(TODAY_DIFFERENCE), (str(NET_CHANGE) + "%"), float(VOLUME), float(AVG_DIFFERENCE),
         float(AVG_DIFFERENCE2), float(LONG_DIFFERENCE))
 
     return newHistoricalData

@@ -18,7 +18,7 @@ class BasicHistoricalData(object):
     openPrice = 0.0
     closePrice = 0.0
     prevClose = 0.0
-    difference = 0.0
+    todayDifference = 0.0
     percentChange = 0.0
     volume = 0.0
     tenDayAverageDifference = 0.0
@@ -26,12 +26,12 @@ class BasicHistoricalData(object):
     thirtyDayChange = 0.0
 
     # The class "constructor" - It's actually an initializer
-    def __init__(self, openPrice, closePrice, prevClose, difference, percentChange, volume, tenDayAverageDifference,
+    def __init__(self, openPrice, closePrice, prevClose, todayDifference, percentChange, volume, tenDayAverageDifference,
         twentyDayAverageDifference, thirtyDayChange):
         self.openPrice = openPrice
         self.closePrice = closePrice
         self.prevClose = prevClose
-        self.difference = difference
+        self.todayDifference = todayDifference
         self.percentChange = percentChange
         self.volume = volume
         self.tenDayAverageDifference = tenDayAverageDifference

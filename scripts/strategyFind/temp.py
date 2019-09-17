@@ -43,7 +43,7 @@ def findWinningPercentage(stock, start, end):
     #make sure there are no NaN's in the dataset
     df = df.groupby(df.columns, axis = 1).transform(lambda x: x.fillna(x.mean()))
 
-    df['percentChange'] = ((df['Close'] - df['prevClose']) / df['prevClose']) * 100
+    df['percentChange'] = ((df['Close'] - df['Open']) / df['Open']) * 100
     df['absPercentChange'] = abs(df['percentChange'])
     df['tomorrowAbsPercentChange'] = df['absPercentChange'].shift(-1)
 
