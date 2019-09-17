@@ -1,0 +1,11 @@
+Flask
+gunicorn
+pandas
+sklearn
+arrow
+seaborn
+numpy==1.16.2
+pandas_datareader
+ta
+
+
