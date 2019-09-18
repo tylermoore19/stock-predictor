@@ -276,3 +276,12 @@ def checkStrategies(stockSymbol, stockName):
     #newStock = Stock(newHistoricalData.__dict__, newFibonacciNumbers.__dict__, newStrategies.__dict__)
 
     return newStock
+
+if __name__ == '__main__':
+
+    stocks = ['^IXIC', '^GSPC', '^RUT', 'DIA', 'UNG', 'USO', 'GLD', 'SLV']
+    names = ['Nasdaq', 'S&P 500', 'Russell 2000', 'Dow', 'Natural Gas', 'Crude Oil', 'Gold', 'Silver']
+
+    for x in range(0, len(stocks)):
+        print (names[x], '\n')
+        checkStrategies(stocks[x], names[x])

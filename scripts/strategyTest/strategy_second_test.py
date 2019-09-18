@@ -138,6 +138,7 @@ def findWinningPercentage(stock, start, end):
         TODAY_OPEN = dfOpen[i]
         TEST_DIFFERENCE = dfDifference[i]
         TODAY_DIFFERENCE = dfTodayDifference[i]
+        TODAY_DIFFERENCE_PERCENT = (TODAY_DIFFERENCE / TODAY_OPEN) * 100
 
         #need to make tmp_difference positive because avg_difference is positive
         #TMP_DIFFERENCE = DIFFERENCE * -1
@@ -330,56 +331,57 @@ def findWinningPercentage(stock, start, end):
 
         #check to see if you won or not
         #we are using AVG_DIFFERENCE / 4 because in nadex, the stock price has to go up a little to win
-        if (INVEST == 2 and TODAY_DIFFERENCE > 0.3):
+        if (INVEST == 2 and TODAY_DIFFERENCE_PERCENT > 0.3):
             #WINS = WINS + 1
             WIN_COUNT += 1
             AVG_WIN += TODAY_DIFFERENCE
-            AVG_PERCENT_WIN += (TODAY_DIFFERENCE / CLOSE)
+            AVG_PERCENT_WIN += (TODAY_DIFFERENCE / TODAY_OPEN)
             PROFIT = PROFIT + (60 * 100)
             #print "You correctly invested up! " + str(TEST_DIFFERENCE)
             #print "Close - Open: " + str(TODAY_NET)
 
-            # print (dfDates[i])
+            # print (df['dates'][i])
             # print (2)
 
-        elif (INVEST == 2 and TODAY_DIFFERENCE < 0.3):
+        elif (INVEST == 2 and TODAY_DIFFERENCE_PERCENT < 0.3):
             #LOSS = LOSS + 1
             LOSS_COUNT += 1
             TODAY_DIFFERENCE *= -1
             AVG_LOSS += TODAY_DIFFERENCE
-            AVG_PERCENT_LOSS += (TODAY_DIFFERENCE / CLOSE)
+            AVG_PERCENT_LOSS += (TODAY_DIFFERENCE / TODAY_OPEN)
             PROFIT = PROFIT - (30 * 100)
             #print "WRONG! " + str(-1 * TEST_DIFFERENCE)
             #print "Close - Open: " + str(TODAY_NET)
 
-            # print (dfDates[i])
+            # print (df['dates'][i])
             # print (1)
 
         #TMP_DIFFERENCE is the negative version of AVG_DIFFERENCE cuz we are looking at investing down
-        elif (INVEST == 1 and TODAY_DIFFERENCE < -0.3):
+        elif (INVEST == 1 and TODAY_DIFFERENCE_PERCENT < -0.3):
             #WINS = WINS + 1
             WIN_COUNT += 1
             TODAY_DIFFERENCE *= -1
             AVG_WIN += TODAY_DIFFERENCE
-            AVG_PERCENT_WIN += (TODAY_DIFFERENCE / CLOSE)
+            AVG_PERCENT_WIN += (TODAY_DIFFERENCE / TODAY_OPEN)
             PROFIT = PROFIT + (60 * 100)
             #print "You correctly invested down! " + str(-1 * TEST_DIFFERENCE)
             #print "Close - Open: " + str(TODAY_NET)
 
-            # print (dfDates[i])
+            # print (df['dates'][i])
             # print (2)
 
-        elif (INVEST == 1 and TODAY_DIFFERENCE > -0.3):
+        elif (INVEST == 1 and TODAY_DIFFERENCE_PERCENT > -0.3):
             #LOSS = LOSS + 1
             LOSS_COUNT += 1
             AVG_LOSS += TODAY_DIFFERENCE
-            AVG_PERCENT_LOSS += (TODAY_DIFFERENCE / CLOSE)
+            AVG_PERCENT_LOSS += (TODAY_DIFFERENCE / TODAY_OPEN)
             PROFIT = PROFIT - (30 * 100)
             #print "WRONG! " + str(TEST_DIFFERENCE)
             #print "Close - Open: " + str(TODAY_NET)
 
-            # print (dfDates[i])
+            # print (df['dates'][i])
             # print (1)
+
 
     WIN_PERCENTAGE = round((WIN_COUNT / (WIN_COUNT + LOSS_COUNT)) * 100, 2)
     if (TOTAL_TEMP == 0):

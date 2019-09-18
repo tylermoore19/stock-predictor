@@ -12,7 +12,7 @@ from models.testData import (
 )
 
 def getTestDataForSecondStrategy(stockSymbol, n):
-    end = datetime.date.today()
+    end = datetime.date.today() + datetime.timedelta(0)
     #going back 365 days because that means 252 trading days, which means 52 days of data
     #because this strategy needs to go back 200 days to be effective (252 - 200)
     start = end + datetime.timedelta(-n)
@@ -22,7 +22,7 @@ def getTestDataForSecondStrategy(stockSymbol, n):
     return (newTestData.__dict__)
 
 def getTestDataForThirdStrategy(stockSymbol, n):
-    end = datetime.date.today()
+    end = datetime.date.today() + datetime.timedelta(0)
     #going back n days to see how often this strategy is correct
     start = end + datetime.timedelta(-n)
 
