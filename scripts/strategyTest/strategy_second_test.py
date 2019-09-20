@@ -331,7 +331,7 @@ def findWinningPercentage(stock, start, end):
 
         #check to see if you won or not
         #we are using AVG_DIFFERENCE / 4 because in nadex, the stock price has to go up a little to win
-        if (INVEST == 2 and TODAY_DIFFERENCE_PERCENT > 0.3):
+        if (INVEST == 2 and TODAY_DIFFERENCE_PERCENT > 0):
             #WINS = WINS + 1
             WIN_COUNT += 1
             AVG_WIN += TODAY_DIFFERENCE
@@ -343,7 +343,7 @@ def findWinningPercentage(stock, start, end):
             # print (df['dates'][i])
             # print (2)
 
-        elif (INVEST == 2 and TODAY_DIFFERENCE_PERCENT < 0.3):
+        elif (INVEST == 2 and TODAY_DIFFERENCE_PERCENT < 0):
             #LOSS = LOSS + 1
             LOSS_COUNT += 1
             TODAY_DIFFERENCE *= -1
@@ -357,7 +357,7 @@ def findWinningPercentage(stock, start, end):
             # print (1)
 
         #TMP_DIFFERENCE is the negative version of AVG_DIFFERENCE cuz we are looking at investing down
-        elif (INVEST == 1 and TODAY_DIFFERENCE_PERCENT < -0.3):
+        elif (INVEST == 1 and TODAY_DIFFERENCE_PERCENT < 0):
             #WINS = WINS + 1
             WIN_COUNT += 1
             TODAY_DIFFERENCE *= -1
@@ -370,7 +370,7 @@ def findWinningPercentage(stock, start, end):
             # print (df['dates'][i])
             # print (2)
 
-        elif (INVEST == 1 and TODAY_DIFFERENCE_PERCENT > -0.3):
+        elif (INVEST == 1 and TODAY_DIFFERENCE_PERCENT > 0):
             #LOSS = LOSS + 1
             LOSS_COUNT += 1
             AVG_LOSS += TODAY_DIFFERENCE

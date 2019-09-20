@@ -69,6 +69,7 @@ def stocks():
     # includeRussell = request.args.get('includeRussell')
     # listOfStocks = getListOfStockData(includeRussell)
     shouldShowStocks = True
+    open("triggers.txt", "w").close()
     listOfStocks = getListOfStockData(shouldShowStocks)
     return jsonify(listOfStocks)
 
@@ -77,6 +78,7 @@ def commodities():
     # includeRussell = request.args.get('includeRussell')
     # listOfStocks = getListOfStockData(includeRussell)
     shouldShowStocks = False
+    open("triggers.txt", "w").close()
     listOfStocks = getListOfStockData(shouldShowStocks)
     return jsonify(listOfStocks)
 

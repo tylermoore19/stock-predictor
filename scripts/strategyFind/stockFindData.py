@@ -184,21 +184,37 @@ def findFibonacciNumbers(stockSymbol, start, end):
 
     CLOSE = dfClose[i]
 
+    FIB_ABOVE_CLOSE = 100000
+    FIB_BELOW_CLOSE = 0
+
     #go through each fib sequence to figure out where the stock currently is
     if (CLOSE <= FIB_HIGH):
         print (str(NUMBER_OF_DAYS_FOR_FIB + 1) + " day high: " + str(FIB_HIGH))
+        FIB_ABOVE_CLOSE = FIB_HIGH
+        FIB_BELOW_CLOSE = FIB_78
     if (CLOSE <= FIB_78):
         print ("Fib 78: " + str(FIB_78))
+        FIB_ABOVE_CLOSE = FIB_78
+        FIB_BELOW_CLOSE = FIB_62
     if (CLOSE <= FIB_62):
         print ("Fib 62: " + str(FIB_62))
+        FIB_ABOVE_CLOSE = FIB_62
+        FIB_BELOW_CLOSE = FIB_50
     if (CLOSE <= FIB_50):
         print ("Fib 50: " + str(FIB_50))
+        FIB_ABOVE_CLOSE = FIB_50
+        FIB_BELOW_CLOSE = FIB_38
     if (CLOSE <= FIB_38):
         print ("Fib 38: " + str(FIB_38))
+        FIB_ABOVE_CLOSE = FIB_38
+        FIB_BELOW_CLOSE = FIB_24
     if (CLOSE <= FIB_24):
         print ("Fib 24: " + str(FIB_24))
+        FIB_ABOVE_CLOSE = FIB_24
+        FIB_BELOW_CLOSE = FIB_LOW
     if (CLOSE <= FIB_LOW):
         print (str(NUMBER_OF_DAYS_FOR_FIB + 1) + " day low: " + str(FIB_LOW))
+        FIB_ABOVE_CLOSE = FIB_LOW
 
     print (" ------------------------- ")
     print ("| Close: " + str(CLOSE) + ' |')
@@ -220,6 +236,13 @@ def findFibonacciNumbers(stockSymbol, start, end):
         print (str(NUMBER_OF_DAYS_FOR_FIB + 1) + " day low: " + str(FIB_LOW))
 
     print ("\n-----------")
+
+    #save fibonacci numbers to text file so you know when to trigger the trade
+    f = open("triggers.txt", "a+")
+    f.write('--------\n')
+    f.write(stockSymbol + '\n')
+    f.write(str(FIB_ABOVE_CLOSE) + ' - ' + str(CLOSE) + ' - ' + str(FIB_BELOW_CLOSE) + '\n')
+    f.close()
 
     newFibonacciNumbers = FibonacciNumbers(CLOSE, FIB_HIGH, FIB_78, FIB_62, FIB_50, FIB_38, FIB_24, FIB_LOW)
 
