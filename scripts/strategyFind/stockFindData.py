@@ -237,11 +237,22 @@ def findFibonacciNumbers(stockSymbol, start, end):
 
     print ("\n-----------")
 
+    #find percent changes for fib high and fib low
+    percentChangeUpper = round(((FIB_ABOVE_CLOSE - CLOSE) / CLOSE) * 100, 2)
+    percentChangeLower = round(((FIB_BELOW_CLOSE - CLOSE) / CLOSE) * 100, 2)
+    #find values for 80% of the fib numbers because this is when you need to start looking at the stock
+    fibAboveClose80Percent = (FIB_ABOVE_CLOSE * 0.8) + (CLOSE * 0.2)
+    fibBelowClose80Percent = (FIB_BELOW_CLOSE * 0.8) + (CLOSE * 0.2)
+    percentChangeUpper80Percent = round(((fibAboveClose80Percent - CLOSE) / CLOSE) * 100, 2)
+    percentChangeLower80Percent = round(((fibBelowClose80Percent - CLOSE) / CLOSE) * 100, 2)
     #save fibonacci numbers to text file so you know when to trigger the trade
     f = open("triggers.txt", "a+")
     f.write('--------\n')
     f.write(stockSymbol + '\n')
-    f.write(str(FIB_ABOVE_CLOSE) + ' - ' + str(CLOSE) + ' - ' + str(FIB_BELOW_CLOSE) + '\n')
+    f.write('Normal fib values: ' + str(round(FIB_ABOVE_CLOSE, 2)) + '(' + str(percentChangeUpper) + '%) - ' + 
+            str(round(CLOSE, 2)) + ' - ' + str(round(FIB_BELOW_CLOSE, 2)) + '(' + str(percentChangeLower) + '%)\n')
+    f.write('80 percent fib values: ' + str(round(fibAboveClose80Percent, 2)) + '(' + str(percentChangeUpper80Percent) + '%) - ' + 
+            str(round(CLOSE, 2)) + ' - ' + str(round(fibBelowClose80Percent, 2)) + '(' + str(percentChangeLower80Percent) + '%)\n')
     f.close()
 
     newFibonacciNumbers = FibonacciNumbers(CLOSE, FIB_HIGH, FIB_78, FIB_62, FIB_50, FIB_38, FIB_24, FIB_LOW)
