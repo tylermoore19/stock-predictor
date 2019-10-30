@@ -1,11 +1,11 @@
-import requests
+# import requests
 import pandas as pd
 import pandas_datareader.data as web
 import math
 import numpy as np
-import arrow
+# import arrow
 import datetime
-from ta import acc_dist_index, chaikin_money_flow, force_index, negative_volume_index, on_balance_volume, put_call_ratio, volume_price_trend
+# from ta import acc_dist_index, chaikin_money_flow, force_index, negative_volume_index, on_balance_volume, put_call_ratio, volume_price_trend
 
 def findWinningPercentage(stock, start, end):
     PROFIT  = 0
@@ -41,19 +41,19 @@ def findWinningPercentage(stock, start, end):
     TOTAL_TEMP2 = 0.0
 
     #make sure there are no NaN's in the dataset
-    df = df.groupby(df.columns, axis = 1).transform(lambda x: x.fillna(x.mean()))
+    # df = df.groupby(df.columns, axis = 1).transform(lambda x: x.fillna(x.mean()))
 
     df['percentChange'] = ((df['Close'] - df['Open']) / df['Open']) * 100
     df['absPercentChange'] = abs(df['percentChange'])
     df['tomorrowAbsPercentChange'] = df['absPercentChange'].shift(-1)
 
-    ADI = acc_dist_index(df['High'], df['Low'], df['Close'], df['Volume'], fillna=False)
-    CMF = chaikin_money_flow(df['High'], df['Low'], df['Close'], df['Volume'], n=10, fillna=False)
-    FI = force_index(df['Close'], df['Volume'], n=2, fillna=False)
-    NVI = negative_volume_index(df['Close'], df['Volume'], fillna=False)
-    OBV = on_balance_volume(df['Close'], df['Volume'], fillna=False)
-    PCR = put_call_ratio()
-    VPT = volume_price_trend(df['Close'], df['Volume'], fillna=False)
+    # ADI = acc_dist_index(df['High'], df['Low'], df['Close'], df['Volume'], fillna=False)
+    # CMF = chaikin_money_flow(df['High'], df['Low'], df['Close'], df['Volume'], n=10, fillna=False)
+    # FI = force_index(df['Close'], df['Volume'], n=2, fillna=False)
+    # NVI = negative_volume_index(df['Close'], df['Volume'], fillna=False)
+    # OBV = on_balance_volume(df['Close'], df['Volume'], fillna=False)
+    # PCR = put_call_ratio()
+    # VPT = volume_price_trend(df['Close'], df['Volume'], fillna=False)
     # print (NVI)
     # print (df['absPercentChange'])
 
@@ -92,7 +92,7 @@ def findWinningPercentage(stock, start, end):
     # is higher than 75% of the other data or lower than 25%, this could be a signal for a big price change the next day
 
     if (stock == 'UNG' or stock == 'USO'):   
-        winPercentage = strategy.loc[(strategy['tomorrowAbsPercentChange'] > 1) & (strategy['predict'] == 1)].count() / strategy.loc[(strategy['predict'] == 1)].count()
+        winPercentage = strategy.loc[(strategy['tomorrowAbsPercentChange'] > 0.75) & (strategy['predict'] == 1)].count() / strategy.loc[(strategy['predict'] == 1)].count()
         winPercentage = round((winPercentage * 100), 2)
         print ('Win Percentage: ' + str(winPercentage['predict']))
     elif (stock == 'GLD' or stock == 'SLV'):
