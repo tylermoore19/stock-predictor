@@ -4,7 +4,7 @@ pandas
 sklearn
 arrow
 seaborn
-numpy==1.16.2
+numpy==1.22.0
 pandas_datareader
 ta
 
